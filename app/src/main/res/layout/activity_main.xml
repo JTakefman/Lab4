@@ -20,7 +20,7 @@
             android:id="@+id/displayProductId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="Not assigned" />
     </TableRow>
 
     <TableRow
@@ -37,7 +37,7 @@
             android:id="@+id/editProductName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="TextView" />
+            android:hint="Product Name" />
     </TableRow>
 
     <TableRow
@@ -54,7 +54,7 @@
             android:id="@+id/editProductPrice"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="TextView" />
+            android:hint="Product Price" />
     </TableRow>
 
     <TableRow
@@ -90,7 +90,7 @@
 
         <ListView
             android:id="@+id/productList"
-            android:layout_width="match_parent"
+            android:layout_width="114dp"
             android:layout_height="match_parent" />
     </TableRow>
 </TableLayout>
