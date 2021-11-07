@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     DatabaseReference databaseProducts;
 
+    int biggestID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,7 +148,11 @@ public class MainActivity extends AppCompatActivity {
                     editProductName.setError(null);
                     editProductPrice.setError(null);
                     DatabaseReference ref = reference.push(); // add new course here
-                    ref.setValue(new Product(productList.size(), productName, Double.parseDouble(productPrice)));
+
+                    // TODO: Determine the new id that will be used to create the new product
+                    setNewId();
+
+                    ref.setValue(new Product(biggestID, productName, Double.parseDouble(productPrice)));
                     editProductName.setText("");
                     editProductPrice.setText("");
                 } // end of outer if/else
@@ -159,6 +165,33 @@ public class MainActivity extends AppCompatActivity {
             } // end of onCalled()
         }); // end of checkCourse listener
 
+    }
+
+    /** Helper method for addProduct() */
+    public void setNewId() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Products");
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                biggestID = 0;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    int currID = (int) snapshot.child("id").getValue();
+                    if (currID == biggestID) {
+                        biggestID++;
+                    } else {
+                        break;
+                    }
+                }
+            } // end of onDataChange()
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            } // end of onCalled()
+
+
+        }); // end of checkCourse listener
     }
 
     public void findProduct() {
