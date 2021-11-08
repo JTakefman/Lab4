@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
     DatabaseReference databaseProducts;
 
-    int biggestID;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,32 +178,6 @@ public class MainActivity extends AppCompatActivity {
         editProductPrice.setText("");
     } // end of addProduct()
 
-    /** Helper method for addProduct() */
-    public void setNewId() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Products");
-
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                biggestID = 0;
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    int currID = (int) snapshot.child("id").getValue();
-                    if (currID == biggestID) {
-                        biggestID++;
-                    } else {
-                        break;
-                    }
-                }
-            } // end of onDataChange()
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            } // end of onCalled()
-
-
-        }); // end of checkCourse listener
-    }
 
     public void findProduct() {
         String productName= editProductName.getText().toString();
