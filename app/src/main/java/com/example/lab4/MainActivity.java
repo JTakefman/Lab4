@@ -161,6 +161,11 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        // set new product id as the highest value possible, aka the size of the product list
+        if (firstAvailableID == -1) {
+            firstAvailableID = productList.getCount();
+        }
+
         // ================== Adding the new product to the database =================
         DatabaseReference productRef = databaseProducts.push();
         Product newProduct;
