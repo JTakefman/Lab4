@@ -128,18 +128,21 @@ public class MainActivity extends AppCompatActivity {
         String productName= editProductName.getText().toString();
         String productPrice = editProductPrice.getText().toString();
 
-        // =======  check if the course name is empty or not  =======
+        // =======  error trap productname and productprice input text fields  =======
+        // product name
         if (productName.equals("")) {
             editProductName.setError("The product name cannot be blank.");
             editProductName.requestFocus();
             return;
         }
 
+        // product price
         else if (productPrice.equals("")) {
             editProductPrice.setError("The price cannot be blank.");
             editProductPrice.requestFocus();
             return;
         }
+
 
         // NOTE: The input is case sensitive, which means the course "Tennis" and "tennis" may co-exist at the same time
 
@@ -178,6 +181,16 @@ public class MainActivity extends AppCompatActivity {
 
             return;
         }
+
+        // check if product price is negative or not
+        if (Float.parseFloat(productPrice) < 0) {
+            editProductPrice.setError("The price cannot be negative");
+            editProductPrice.requestFocus();
+            return;
+        }
+
+        // add the new product
+
         productRef.setValue(newProduct);
         editProductName.setText("");
         editProductPrice.setText("");
